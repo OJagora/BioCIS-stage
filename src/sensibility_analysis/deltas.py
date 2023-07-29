@@ -1,7 +1,7 @@
 import numpy as np
 from confidence import g
 
-def getDelta(W,X,ind) :
+def getDelta(X,W,ind) :
     '''Calculation of delta for fixed w as defined in paper'''
     w1 = W[0]
     w2 = W[1]
@@ -25,7 +25,7 @@ def getDelta(W,X,ind) :
     res = round(diff.mean(),2)
     return res
 
-def genDeltas(ind,X, d=100) :
+def genDeltas(X,ind, d=100) :
     '''Calculatio of the delta with ind specifying the case test
     d is the step of our simulation'''
     deltas = np.zeros((d,d))
