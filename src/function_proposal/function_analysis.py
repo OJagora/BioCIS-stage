@@ -4,6 +4,7 @@ import seaborn as sns
 from scipy.stats import kendalltau, rankdata
 import pandas as pd
 from function_defintion import f_oct
+from extract_data import get_data
 
 #weights determined in search_weights
 w1 = -0.172
@@ -12,20 +13,7 @@ w3 = -0.434
 
 #Read data
 path = "././ressources/novelty.xlsx"
-df = pd.read_excel(path, usecols='A,B,C,D,E,F,G,H,Z',skiprows=0,nrows=19)
-data = df.to_numpy()
-a1 = data[:,4]
-a2 = data[:,5]
-a3 = data[:,6]
-c1 = data[:,1]
-c2 = data[:,2]
-c3 = data[:,3]
-GX = (a1+a2+a3)/3
-GY = (c1+c2+c3)/3
-f = data[:,7]
-index = data[:,0]
-f_oliv = data[:,8]
-h_oliv = np.interp(f_oliv, (min(f_oliv), max(f_oliv)), (0,1))
+GX,GY,f,index,h_oliv = get_data(path)
 
 def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
     print("============================")
