@@ -1,5 +1,5 @@
 # BioCIS-stage
-Work by Octave Jagora during an internship at BioCIS CNRS laboratory under the supervision of :
+Work by Octave Jagora during an internship at BioCIS CNRS Laboratory under the supervision of :
 - Professor Mehdi Beniddir (Paris-Saclay University)
 - Professor Olivier Cailloux (Dauphine PSL)
 - PhD student Yassine Mejri
