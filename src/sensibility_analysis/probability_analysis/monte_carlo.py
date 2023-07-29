@@ -41,10 +41,10 @@ def Sobols(n=1000,esp = True, var = True) :
         if var :
             Var.append(VarXi(A,B,i))
 
-    Eis = Esp/sum(Esp)
-    Vis = Var/sum(Var)
-    print('Espi : ', Eis)
-    print('Vari : ', Vis)
-    return Eis,Vis
-
-Sobols()
+    if esp :
+        Esp = Esp/sum(Esp)
+    if var :
+        Var = Var/sum(Var)
+    print('Espi : ', Esp)
+    print('Vari : ', Var)
+    return Esp,Var
