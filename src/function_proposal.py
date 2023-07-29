@@ -11,7 +11,7 @@ w2 = 0.192
 w3 = -0.434
 
 #Read data
-path = "C:\\Users\\octav\\Desktop\\stage\\data\\data.ods"
+path = "..\\ressources\\novelty.ods"
 df = read_ods(path,columns=['id','c1','c2','c3','t(1, 2)','t(1, 3)','t(2, 3)','nouveauté','commentaire',
                             'nouv corr','a1','a2','a3','zeta1','zeta2','zeta3',
                             'r1','r2','r3','max zeta','middle zeta','min zeta','g','rc','f','est novelty'])
