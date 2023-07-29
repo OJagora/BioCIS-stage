@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from scipy.optimize import minimize
 from scipy.stats import kendalltau, rankdata
-from pandas_ods_reader import read_ods
+import pandas as pd
+from function_defintion import f_oct
 
 #weights determined in search_weights
 w1 = -0.172
@@ -11,38 +11,21 @@ w2 = 0.192
 w3 = -0.434
 
 #Read data
-path = "..\\ressources\\novelty.ods"
-df = read_ods(path,columns=['id','c1','c2','c3','t(1, 2)','t(1, 3)','t(2, 3)','nouveauté','commentaire',
-                            'nouv corr','a1','a2','a3','zeta1','zeta2','zeta3',
-                            'r1','r2','r3','max zeta','middle zeta','min zeta','g','rc','f','est novelty'])
-a1 = df['t(1, 2)'].to_numpy()
-a2 = df['t(1, 3)'].to_numpy()
-a3 = df['t(2, 3)'].to_numpy()
-c1 = df['c1'].to_numpy()
-c2 = df['c2'].to_numpy()
-c3 = df['c3'].to_numpy()
-GX = (a1[:19]+a2[:19]+a3[:19])/3
-GY = (c1[:19]+c2[:19]+c3[:19])/3
-f = df['nouveauté'].to_numpy()
-index = df['id'].to_numpy()
-f_oliv = df['est novelty'].to_numpy()
+path = "././ressources/novelty.xlsx"
+df = pd.read_excel(path, usecols='A,B,C,D,E,F,G,H,Z',skiprows=0,nrows=19)
+data = df.to_numpy()
+a1 = data[:,4]
+a2 = data[:,5]
+a3 = data[:,6]
+c1 = data[:,1]
+c2 = data[:,2]
+c3 = data[:,3]
+GX = (a1+a2+a3)/3
+GY = (c1+c2+c3)/3
+f = data[:,7]
+index = data[:,0]
+f_oliv = data[:,8]
 h_oliv = np.interp(f_oliv, (min(f_oliv), max(f_oliv)), (0,1))
-
-f = f[:19]
-index = index[:19]
-h_oliv = h_oliv[:19]
-
-#calculation of f according to paper's defintion
-def f_oct(w1,w2,w3,x,y) :
-    z1 = np.sin(x)*np.sin(y)
-    z2 = np.sin(x+2)*np.sin(y+2)
-    z3 = np.sin(x+2)*np.sin(y)
-    z4 = np.sin(x)*np.sin(y+2)
-    
-    z = z1 + w1*z2 + w2*z3 + w3*z4
-    #mapping of z values to [1,0]
-    z = np.interp(z, (z.min(),z.max()),(1,0))
-    return(z)
 
 def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
     print("============================")
