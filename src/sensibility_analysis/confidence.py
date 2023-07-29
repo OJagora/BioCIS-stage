@@ -18,7 +18,8 @@ def g(w1,w2,w3,wt,X):
     res = w1*R[:,2] + w2*R[:,1] + w3*R[:,0]
     return res
 
-def getDelta(W,ind,X) :
+def getDelta(W,X,ind) :
+    '''Calculation of delta for fixed w as defined in paper'''
     w1 = W[0]
     w2 = W[1]
     w3 = W[2]
@@ -38,10 +39,10 @@ def getDelta(W,ind,X) :
     else :
         return None
     diff = np.abs(g_max-g_min)
-    return round(diff.mean(),2)
+    res = round(diff.mean(),2)
+    return res
 
-
-def genDeltas(ind,d==100,X):
+def genDeltas(ind,X, d=100) :
     '''Calculatio of the delta with ind specifying the case test
     d is the step of our simulation'''
     deltas = np.zeros((d,d))
