@@ -6,7 +6,7 @@ Work by Octave Jagora during an internship at BioCIS CNRS laboratory under the s
 
 This work consists of :
 - Analysis of indices (Tanimoto and Modified Cosine) definition and implementation by different tools
-- Analysis of fingerprints generation methods (such as Morgan Fingerprints) and their calculation methods
+- Analysis of fingerprints generation methods (such as Morgan Fingerprints)
 - Sensibility analysis of a confidence function
 - Proposal of a function to quantify novelty of a compound
 
