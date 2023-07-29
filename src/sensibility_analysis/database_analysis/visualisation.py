@@ -6,7 +6,7 @@ from deltas import genDeltas,getDelta
 from matplotlib.collections import LineCollection
 from confidence import g
 
-path = '././ressources/mia.csv'
+path = './././ressources/mia.csv'
 df = pd.read_csv(path)
 X = np.array([df['avrege_gnps'],df['score_gnps'],
      df['avrege_sirius'],df['score_sirius'],
@@ -137,10 +137,9 @@ def plotW(ax,X,W,p,n) :
     
     x = np.linspace(0,1,len(GS[-1]))
     xs = np.tile(x,(n,1))
-    #fig,ax = plt.subplots()
     segments = [np.column_stack([x, np.interp(y, (y.min(), y.max()), (0,1))]) for x, y in zip(xs, GS)]
     lc = LineCollection(segments,cmap = "coolwarm")
-    
+
     if p == 1 :
         lc.set_array(np.asarray(W2))
     elif p == 2 :
@@ -150,8 +149,6 @@ def plotW(ax,X,W,p,n) :
         
     ax.add_collection(lc)
     ax.autoscale()
-    #axcb = fig.colorbar(lc)
-    #axcb.set_label("w"+str(ind))
 
 def visualize_weights_enveloppes(W = [0.1,0.3,0.5,0.7,0.9],n=1000):
     fig, axs = plt.subplots(3,5)
@@ -167,4 +164,3 @@ def visualize_weights_enveloppes(W = [0.1,0.3,0.5,0.7,0.9],n=1000):
                 axs[j,i].set_title("Wi = " + str(W[i]))
     plt.show()
 
-visualize_weights_enveloppes()
