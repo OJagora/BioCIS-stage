@@ -9,7 +9,6 @@ X = np.array([df['avrege_gnps'],df['score_gnps'],
      df['avrege_sirius'],df['score_sirius'],
      df['avrege_isdb'],df['score_isdb']])
 
-
 def delta_heatmap(X,n=100,p=11):
     fig, axs = plt.subplots(2,3,figsize=(5,5))
     fig.suptitle('Deltas')
