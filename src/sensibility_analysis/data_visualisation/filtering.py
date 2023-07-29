@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def filter(path,max = 0.99, min = 0.001):
     df = pd.read_csv(path)
@@ -31,4 +32,11 @@ def filter(path,max = 0.99, min = 0.001):
             AF1.append(a1)
             AF2.append(a2)
             AF3.append(A3[i])
+
+    CF1 = np.array(CF1)
+    CF2 = np.array(CF2)
+    CF3 = np.array(CF3)
+    AF1 = np.array(AF1)
+    AF2 = np.array(AF2)
+    AF3 = np.array(AF3)
     return(CF1,CF2,CF3,AF1,AF2,AF3)

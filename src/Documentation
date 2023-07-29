@@ -1,1 +1,21 @@
 Documentation of the tools
+
+=================
+FINGERPRINTS :
+=================
+
+* SiMaps_compare :
+--> Inputs :
+    - Run the script
+    - Specify the index of the example. The images and score will appear in a 'examplei' file in the output folder 
+    - Specify first and second SMILES of the moelcules you want to compare
+--> Outputs :
+    - Side by side represenations of the two molecules
+    - Similarity maps for the two molecules for both of the fingerprints (Morgan and ASP)
+    - Text file containing SMILES and Tanimoto scores
+
+=================
+SENSIBILITY :
+=================
+|| Data base analysis :
+* visualisation :
