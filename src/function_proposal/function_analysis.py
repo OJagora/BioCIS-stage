@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from scipy.stats import kendalltau, rankdata
-import pandas as pd
 from function_defintion import f_oct
 from extract_data import get_data
 
@@ -16,11 +15,21 @@ path = "././ressources/novelty.xlsx"
 GX,GY,f,index,h_oliv = get_data(path)
 
 def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
+    """plotf plots the novelty function f_oct for different pairs of average cosine and tanimotos
+
+    :param float w1: first weight of f
+    :param float w2: second weight of f
+    :param float w3: third weight of f
+    :param int depth: resolution (number of points) of each axis (Average Cosine and Average Tanimoto)
+    :param int ticks: number of ticks for each axis
+    :param bool showpoint: boolean to toggle wether or not to show expert's predictions overlay 
+    """
     print("============================")
     print("======= Plotting of f ======")
     print("============================")
     #constrcut grid of (x,y) points to calculate f
     X, Y = np.mgrid[0:1:1000j, 0:1:1000j]
+    #calculate values of novelty
     Z = f_oct(w1,w2,w3,X,Y)
 
     fig, ax = plt.subplots(figsize=(6, 5))
@@ -41,11 +50,22 @@ def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
     return
 
 def dist(h1,h2) :
+    """dist calculates the average error for the set of values
+
+    :param numpy array h1: array of novelty values for first estimator
+    :param numpy array h2: array of novelty values for second estimator
+    
+    :return: percentage of error
+    """
     return (abs(h1-h2)).mean()
 
 h_oct = f_oct(w1,w2,w3,GX,GY)
 
 def comparef(h):
+    """comparef scatters the values obtained by a novelty function and compares them to our expert's truth
+
+    :param numpy array h: list of values obtained with a novelty function for the average tanimoto and cosine of our test cases
+    """
     print("============================")
     print(" Comparison of predictions  ")
     print("============================")
@@ -81,6 +101,11 @@ def comparef(h):
     return
 
 def plotDiff(h) :
+    """plotDiff shows the error of prediction in value for each test case in the form of a scatter plot
+    
+    :param numpy array h: values obtained with a novelty function for our test cases
+    """
+
     print("============================")
     print("Plotting of prediction error")
     print("============================")
