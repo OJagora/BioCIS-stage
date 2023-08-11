@@ -3,6 +3,11 @@ import numpy as np
 
 #Read data
 def get_data(path) :
+    """get_data reads the data of the file
+    
+    :param path: path of the file to read
+    
+    :output: numpy arrays of each column of interest"""
     df = pd.read_excel(path, usecols='A,B,C,D,E,F,G,H,Z',skiprows=0,nrows=19)
     data = df.to_numpy()
     a1 = data[:,4]
@@ -11,6 +16,7 @@ def get_data(path) :
     c1 = data[:,1]
     c2 = data[:,2]
     c3 = data[:,3]
+    #Computes the average values for the cosine an the tanimotos
     GX = (a1+a2+a3)/3
     GY = (c1+c2+c3)/3
     f = data[:,7]

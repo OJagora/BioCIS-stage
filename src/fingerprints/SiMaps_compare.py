@@ -78,7 +78,6 @@ refmol_ASP = getASPfinger(refmol, atom = -1)
 
 MG_score = DataStructs.TanimotoSimilarity(mol_MFP,refmol_MFP)
 ASP_score = DataStructs.TanimotoSimilarity(mol_ASP,refmol_ASP)
-#ASP_score = SimiASP(mol_ASP,refmol_ASP)
 
 #========== Write file ===============#
 
