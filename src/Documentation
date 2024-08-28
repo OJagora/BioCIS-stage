@@ -1,42 +1,56 @@
 Documentation of the tools
 
-=================
+
 FINGERPRINTS :
 =================
 
 * SiMaps_compare :
+---
 --> Inputs :
+
     - Run the script
     - Specify the index of the example. The images and score will appear in a 'examplei' file in the output folder 
     - Specify first and second SMILES of the moelcules you want to compare
+
 --> Outputs :
+
     - Side by side represenations of the two molecules
     - Similarity maps for the two molecules for both of the fingerprints (Morgan and ASP)
     - Text file containing SMILES and Tanimoto scores
 
-=================
+
 SENSIBILITY :
 =================
 || Data Visualisation :
+---
+
 * visualisation :
-- plot_distrib : generates figure 21 from paper
-- histogram : generates figure 20 from paper
+
+    - plot_distrib : generates figure 21 from paper
+    - histogram : generates figure 20 from paper
 
 || Probability analysis :
+---
+
 * visualisation :
-- showVari : generate figure 23 from paper
-- plot_Simulated_Distributions : generates figure 22 from paper
+    - showVari : generate figure 23 from paper
+    - plot_Simulated_Distributions : generates figure 22 from paper
 
 || Data base analysis :
-* visualisation :
-- delta_heatmap : generates figure 26 and 27 from paper
-- plotWt : generates figure 24 from paper
-- visualize_weights_enveloppes : generates figure 25 from paper
+---
 
-=================
+* visualisation :
+    - delta_heatmap : generates figure 26 and 27 from paper
+    - plotWt : generates figure 24 from paper
+    - visualize_weights_enveloppes : generates figure 25 from paper
+
+
 PROPOSAL :
 =================
-* function_analysis :
+
+|| function_analysis :
+---
+
 - plotf : generates figure 33 from paper
 - comparef : generates figure 30 and 34 from paper
 - plotDiff : generates a figure that does not appear in paper, indicating the error of prediction for each data point
