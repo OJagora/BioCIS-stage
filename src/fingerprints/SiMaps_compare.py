@@ -14,8 +14,8 @@ print('Index of the example :')
 num = input()
 current = os.path.dirname(os.path.realpath(__file__))
 path = current + '/output/'
-file = 'example'+str(num)+'/'
-os.mkdir(path+file)
+file = 'example' + str(num) + '/'
+os.mkdir(path + file)
 
 #======= Generation des molecules ==============#
 m1 = 'CC1(C=CN2[C@@H](CC13C(=O)C4=CC=CC=C4N3)C(=O)N5CCC=C5C2=O)C'
@@ -30,54 +30,66 @@ refmol = Chem.MolFromSmiles(m2)
 
 #======= Affichage des molecules ===============#
 
-im = Draw.MolsToGridImage((mol,refmol),molsPerRow=2, subImgSize=(500,500),legends=["(a)","(b)"])
-im.save(path+file+'sideBside.png')
+im = Draw.MolsToGridImage((mol, refmol), molsPerRow=2, subImgSize=(500, 500), legends=["(a)", "(b)"])
+im.save(path + file + 'sideBside.png')
 
-Draw.MolToFile(mol,path+file+'mol.png')
-Draw.MolToFile(refmol,path+file+'refmol.png')
+Draw.MolToFile(mol, path + file + 'mol.png')
+Draw.MolToFile(refmol, path + file + 'refmol.png')
 
 #======= Construction des cartes de similarite =#
 # definition des generateur
 
 def GetSimMorgan(refmol, mol):
+    '''GetSimMorgan calculates the similarity map between two molecules using the Morgan method
+
+    :param refmol: RDKit molecule to use as reference
+    :param mol: RDKit molecule to compare with the reference
+
+    :return: figure of the similarity map'''
     fig, maxweight = SimilarityMaps.GetSimilarityMapForFingerprint(refmol,
-                    mol, lambda m,idx: SimilarityMaps.GetMorganFingerprint(m, atomId=idx, radius=2),
+                    mol, lambda m, idx: SimilarityMaps.GetMorganFingerprint(m, atomId=idx, radius=2),
                     metric=DataStructs.TanimotoSimilarity)
     return fig
 
 def GetSimASP(refmol, mol):
+    '''GetSimASP calculates the similarity map between two molecules using the All-Shortest-Path method
+    
+    :param refmol: RDKit molecule to use as reference
+    :param mol: RDKit molecule to compare with the reference
+    
+    :return: figure of the similarity map'''
     fig, maxweight = SimilarityMaps.GetSimilarityMapForFingerprint(refmol,
-                    mol, lambda m,idx: getASPfinger(m, atom=idx),
+                    mol, lambda m, idx: getASPfinger(m, atom=idx),
                     metric=DataStructs.TanimotoSimilarity)
     return fig
 
 #calculation of the 4 different similarity maps
 
-ref_sim_morg = GetSimMorgan(refmol,mol)
-mol_sim_morg = GetSimMorgan(mol,refmol)
+ref_sim_morg = GetSimMorgan(refmol, mol)
+mol_sim_morg = GetSimMorgan(mol, refmol)
 
-ref_sim_asp = GetSimASP(refmol,mol)
-mol_sim_asp = GetSimASP(mol,refmol)
+ref_sim_asp = GetSimASP(refmol, mol)
+mol_sim_asp = GetSimASP(mol, refmol)
 
 #save the figures
-ref_sim_morg.savefig(path+file+'morganSimMap1.png',dpi = 150, bbox_inches='tight')
-mol_sim_morg.savefig(path+file+'morganSimMap2.png',dpi = 150, bbox_inches='tight')
+ref_sim_morg.savefig(path + file + 'morganSimMap1.png', dpi = 150, bbox_inches = 'tight')
+mol_sim_morg.savefig(path + file + 'morganSimMap2.png', dpi = 150, bbox_inches = 'tight')
 
-ref_sim_asp.savefig(path+file+'AspSimMap1.png',dpi = 150, bbox_inches='tight')
-mol_sim_asp.savefig(path+file+'AspSimMap2.png',dpi = 150, bbox_inches='tight')
+ref_sim_asp.savefig(path + file + 'AspSimMap1.png', dpi = 150, bbox_inches = 'tight')
+mol_sim_asp.savefig(path + file + 'AspSimMap2.png', dpi = 150, bbox_inches = 'tight')
 
 #========== Calcul des fingerprints ==========#
 
-mol_MFP = AllChem.GetMorganFingerprintAsBitVect(mol, useChirality=True, radius=2)
-refmol_MFP = AllChem.GetMorganFingerprintAsBitVect(refmol, useChirality=True, radius=2)
+mol_MFP = AllChem.GetMorganFingerprintAsBitVect(mol, useChirality=True, radius = 2)
+refmol_MFP = AllChem.GetMorganFingerprintAsBitVect(refmol, useChirality=True, radius = 2)
 
 mol_ASP = getASPfinger(mol, atom = -1)
 refmol_ASP = getASPfinger(refmol, atom = -1)
 
 #========= Calcul des Tanimoto ===============#
 
-MG_score = DataStructs.TanimotoSimilarity(mol_MFP,refmol_MFP)
-ASP_score = DataStructs.TanimotoSimilarity(mol_ASP,refmol_ASP)
+MG_score = DataStructs.TanimotoSimilarity(mol_MFP, refmol_MFP)
+ASP_score = DataStructs.TanimotoSimilarity(mol_ASP, refmol_ASP)
 
 #========== Write file ===============#
 

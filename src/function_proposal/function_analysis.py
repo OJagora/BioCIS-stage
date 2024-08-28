@@ -12,9 +12,9 @@ w3 = -0.434
 
 #Read data
 path = "././ressources/novelty.xlsx"
-GX,GY,f,index,h_oliv = get_data(path)
+GX, GY, f, index, h_oliv = get_data(path)
 
-def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
+def plotf(w1, w2, w3, depth = 1000, ticks = 11, showPoint = False):
     """plotf plots the novelty function f_oct for different pairs of average cosine and tanimotos
 
     :param float w1: first weight of f
@@ -27,17 +27,17 @@ def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
     print("============================")
     print("======= Plotting of f ======")
     print("============================")
-    #constrcut grid of (x,y) points to calculate f
+    # constrcut grid of (x,y) points to calculate f
     X, Y = np.mgrid[0:1:1000j, 0:1:1000j]
-    #calculate values of novelty
-    Z = f_oct(w1,w2,w3,X,Y)
+    # calculate values of novelty
+    Z = f_oct(w1, w2, w3, X, Y)
 
-    fig, ax = plt.subplots(figsize=(6, 5))
+    fig, ax = plt.subplots(figsize = (6, 5))
     fig.suptitle('Novelty')
     Z = np.transpose(Z)
-    #plot heatmap of f values
-    sns.heatmap(Z[::-1,::],cmap='magma')
-    labs = [str(round(x,2)) for x in np.linspace(0,1,ticks)]
+    # plot heatmap of f values
+    sns.heatmap(Z[::-1, ::], cmap = 'magma')
+    labs = [str(round(x, 2)) for x in np.linspace(0, 1, ticks)]
     tk = [x for x in np.linspace(0,depth,ticks)]
     ax.set_xticks(ticks = tk, labels = labs)
     ax.set_yticks(ticks = tk, labels = labs[::-1])
@@ -45,7 +45,7 @@ def plotf(w1,w2,w3,depth=1000,ticks = 11,showPoint = False):
     ax.set_ylabel('Average Cosine')
     #plot expert values if wanted
     if showPoint:
-        sns.scatterplot(x = GX*depth, y = GY*depth, hue = f, cmap='magma')
+        sns.scatterplot(x = GX * depth, y = GY * depth, hue = f, cmap='magma')
     plt.show()
     return
 
@@ -57,9 +57,9 @@ def dist(h1,h2) :
     
     :return: percentage of error
     """
-    return (abs(h1-h2)).mean()
+    return (abs(h1 - h2)).mean()
 
-h_oct = f_oct(w1,w2,w3,GX,GY)
+h_oct = f_oct(w1, w2, w3, GX, GY)
 
 def comparef(h):
     """comparef scatters the values obtained by a novelty function and compares them to our expert's truth
@@ -70,9 +70,9 @@ def comparef(h):
     print(" Comparison of predictions  ")
     print("============================")
     fig, ax = plt.subplots()
-    #scatter predictions
-    plt.scatter(np.linspace(0,1,len(f)),f,label ='Expert Values',alpha = 0.5)
-    plt.scatter(np.linspace(0,1,len(h)),h, label = 'f Values',alpha = 0.5)
+    # scatter predictions
+    plt.scatter(np.linspace(0, 1, len(f)), f, label ='Expert Values', alpha = 0.5)
+    plt.scatter(np.linspace(0, 1, len(h)), h, label = 'f Values', alpha = 0.5)
     plt.title("Novelty estimation")
     ax.set_ylabel("f (novelty) value")
     ax.set_xticks([])
@@ -81,15 +81,15 @@ def comparef(h):
     ranked_list1 = rankdata(f)
     ranked_list2 = rankdata(h)
     tau, p_value = kendalltau(ranked_list1, ranked_list2)
-    plt.text(0,0.8,"Correlation : "+str(round(tau*100,1))+"%", weight='bold')
-    #calculate relative error
-    err = dist(f,h)
-    plt.text(0,0.7,"Relative error : "+str(round(err*100,1))+"%")
+    plt.text(0, 0.8, "Correlation : " + str(round(tau * 100, 1)) + "%", weight='bold')
+    # calculate relative error
+    err = dist(f, h)
+    plt.text(0, 0.7, "Relative error : " + str(round(err * 100, 1)) + "%")
 
-    #specify indexes of points scattered
-    absi = np.linspace(0,1,len(f))
+    # specify indexes of points scattered
+    absi = np.linspace(0, 1, len(f))
     for i,txt in enumerate(index):
-        ax.annotate(int(txt), (absi[i],f[i]))
+        ax.annotate(int(txt), (absi[i], f[i]))
     ax.text(0.22, 0, 'Labels over points are the indexes of the test cases', color='black', 
             bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=1'))
     
@@ -110,7 +110,7 @@ def plotDiff(h) :
     print("Plotting of prediction error")
     print("============================")
     fig, ax = plt.subplots(figsize=(6, 5))
-    #plot diffrence of predicitions for each data point
+    # plot diffrence of predicitions for each data point
     sns.scatterplot(x = GX, y = GY, hue = h-f, palette = 'bwr',s = 100)
     fig.suptitle('Difference of estimations')
     ax.set_xlabel('Average Tanimoto')

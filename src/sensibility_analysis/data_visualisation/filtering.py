@@ -2,6 +2,15 @@ import pandas as pd
 import numpy as np
 
 def filter(path,max = 0.99, min = 0.001):
+    """filter filters the data from the input file to remove the values that are too high or too low
+
+    :param str path: path to the input file
+    :param float max: maximum value to keep
+    :param float min: minimum value to keep
+
+    :return: filtered values
+    """
+
     df = pd.read_csv(path)
     C1 = df['score_gnps'].to_numpy()
     A1 = df['avrege_gnps'].to_numpy()
@@ -39,4 +48,4 @@ def filter(path,max = 0.99, min = 0.001):
     AF1 = np.array(AF1)
     AF2 = np.array(AF2)
     AF3 = np.array(AF3)
-    return(CF1,CF2,CF3,AF1,AF2,AF3)
+    return(CF1, CF2, CF3, AF1, AF2, AF3)
