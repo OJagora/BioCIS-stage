@@ -12,3 +12,5 @@ This work consists of :
 
 This repository contains the written report of the research conducted over my internship, and the code used for this purpose.
 Succint documentation can be found in the src folder, and the paper can be found in the ressources folder.
+
+The paper is now published and available [here](https://doi.org/10.1002/cmtd.202400088)
